@@ -1,12 +1,9 @@
 #!/bin/bash
-
 ##### Change these values ###
 ZONE_ID="Z0607165JC9NKEPWSMH2"
 DOMAIN="sstech.store"
 SG_NAME="allow-all"
 #############################
-
-
 
 create_ec2() {
   PRIVATE_IP=$(aws ec2 run-instances \
