@@ -9,10 +9,10 @@ cd /app
 unzip /tmp/catalogue.zip
 cd /app
 npm install
-cp $(code_dir)/configs/catalogue.service /etc/systemd/system/catalogue.service
+cp ${code_dir}/configs/catalogue.service /etc/systemd/system/catalogue.service
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl restart catalogue
-cp $(code_dir)/configs/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo
 yum install mongodb-org-shell -y
 mongo --host mongodb.sstech.store </app/schema/catalogue.js
