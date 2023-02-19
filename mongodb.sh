@@ -1,5 +1,5 @@
 code_dir=$(pwd)
-cp ${code_dir}/configs/mongo.repo /etc/yum.repos.d/mongodb.repo
+cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo
 yum install mongodb-org -y
 systemctl enable mongod
 systemctl start mongod
