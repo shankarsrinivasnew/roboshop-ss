@@ -21,10 +21,11 @@ mysql_root_password=$1
 
 echo show databases | mysql -uroot -p${mysql_root_password}}  &>>${log_file}
 if [ $? -ne 0 ]; then
-print_header "seeting root password mysql"
+print_header "setting root password mysql"
 mysql_secure_installation --set-root-pass ${mysql_root_password}  &>>${log_file}
 status_check $?
 fi
+status_check $?
 
 
 
