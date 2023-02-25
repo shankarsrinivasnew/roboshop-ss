@@ -7,7 +7,7 @@ print_header () {
 }
 
 status_check () {
-if [ $? -eq 0 ]; then
+if [ $1 -eq 0 ]; then
     echo "success"
 else
     echo "failed"
