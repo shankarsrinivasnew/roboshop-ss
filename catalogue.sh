@@ -16,7 +16,9 @@ fi
 status_check $?
 
 print_header "adding new directory"
+if [ ! -d /app ]; then
 mkdir /app &>>{log_file}
+fi
 status_check $?
 
 print_header "removing old content"
