@@ -34,7 +34,7 @@ npm install  &>>{log_file}
 status_check $?
 
 print_header "copyig systemd files"
-copy ${code_dir}/user.service /etc/systemd/system/user.service  &>>{log_file}
+copy ${code_dir}/configs/user.service /etc/systemd/system/user.service  &>>{log_file}
 status_check $?
 
 print_header "starting user service"
