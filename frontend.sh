@@ -1,6 +1,6 @@
 source common.sh
 
-print_header "Installing nginx"
+print_header "Installing ngindd"
 yum install nginx -y &>>/tmp/roboshop.log
 status_check $?
 
