@@ -38,8 +38,8 @@ curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$comp
 status_check $?
 
 print_header "unzipping new code"
-unzip /tmp/$component.zip &>>${log_file}
 cd /app
+unzip /tmp/$component.zip &>>${log_file}
 status_check $?
 }
 
@@ -97,10 +97,6 @@ app_user_setup
 
 print_header "installing new code"
 npm install &>>${log_file}
-status_check $?
-
-print_header "copying old code"
-cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service &>>${log_file}
 status_check $?
 
 schema_setup
