@@ -15,6 +15,34 @@ else
 fi
 }
 
+app_user_setup () {
+print_header "adding user"
+id roboshop &>>${log_file}
+if [ $? -ne 0 ]; then
+useradd roboshop &>>${log_file}
+fi
+status_check $?
+
+print_header "adding new directory"
+if [ ! -d /app ]; then
+mkdir /app &>>${log_file}
+fi
+status_check $?
+
+print_header "removing old content"
+rm -rvf /app/* &>>${log_file}
+status_check $?
+
+print_header "downloading new code"
+curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip  &>>${log_file}
+status_check $?
+
+print_header "unzipping new code"
+cd /app
+unzip /tmp/$component.zip &>>${log_file}
+status_check $?
+}
+
 
 
 schema_setup () {
@@ -96,30 +124,3 @@ systemd_setup
 
 }
 
-app_user_setup () {
-print_header "adding user"
-id roboshop &>>${log_file}
-if [ $? -ne 0 ]; then
-useradd roboshop &>>${log_file}
-fi
-status_check $?
-
-print_header "adding new directory"
-if [ ! -d /app ]; then
-mkdir /app &>>${log_file}
-fi
-status_check $?
-
-print_header "removing old content"
-rm -rvf /app/* &>>${log_file}
-status_check $?
-
-print_header "downloading new code"
-curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip  &>>${log_file}
-status_check $?
-
-print_header "unzipping new code"
-cd /app
-unzip /tmp/$component.zip &>>${log_file}
-status_check $?
-}
