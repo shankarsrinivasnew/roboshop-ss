@@ -15,6 +15,34 @@ else
 fi
 }
 
+app_user_setup () {
+print_header "adding user"
+id roboshop &>>${log_file}
+if [ $? -ne 0 ]; then
+useradd roboshop &>>${log_file}
+fi
+status_check $?
+
+print_header "adding new directory"
+if [ ! -d /app ]; then
+mkdir /app &>>${log_file}
+fi
+status_check $?
+
+print_header "removing old content"
+rm -rvf /app/* &>>${log_file}
+status_check $?
+
+print_header "downloading new code"
+curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip  &>>${log_file}
+status_check $?
+
+print_header "unzipping new code"
+unzip /tmp/$component.zip &>>${log_file}
+cd /app
+status_check $?
+}
+
 nodejs () {
 
 print_header "downloading code"
@@ -80,35 +108,10 @@ status_check $?
 print_header "loading mysql schema"
 mysql -h mysql.sstech.store -uroot -p${mysql_root_password} < /app/schema/$component.sql &>>${log_file}
 status_check $?
+fi
 }
 
-app_user_setup () {
-print_header "adding user"
-id roboshop &>>${log_file}
-if [ $? -ne 0 ]; then
-useradd roboshop &>>${log_file}
-fi
-status_check $?
 
-print_header "adding new directory"
-if [ ! -d /app ]; then
-mkdir /app &>>${log_file}
-fi
-status_check $?
-
-print_header "removing old content"
-rm -rvf /app/* &>>${log_file}
-status_check $?
-
-print_header "downloading new code"
-curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip  &>>${log_file}
-status_check $?
-
-print_header "unzipping new code"
-unzip /tmp/$component.zip &>>${log_file}
-cd /app
-status_check $?
-}
 
 systemd_setup () {
 print_header "adding systemd file"
