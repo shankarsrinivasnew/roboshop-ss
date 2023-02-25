@@ -1,7 +1,7 @@
 source common.sh
 
 print_header "Installing nginx"
-yum install ngindddsfx -y &>>${log_file}
+yum install nginx -y &>>${log_file}
 status_check $?
 
 print_header "enabling service"
