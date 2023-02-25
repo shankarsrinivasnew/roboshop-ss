@@ -2,7 +2,8 @@ source common.sh
 
 print_header "Installing nginx"
 yum install nginx -y &>>/tmp/roboshop.log
-if [ $? -eq 0]; then
+
+if [ $? -eq 0 ]; then
     echo "success"
 else
     echo "failed"
