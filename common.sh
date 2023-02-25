@@ -35,13 +35,9 @@ print_header "copying old code"
 cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service &>>${log_file}
 status_check $?
 
-print_header "restarting service"
-systemctl daemon-reload &>>${log_file}
-systemctl enable $component &>>${log_file}
-systemctl restart $component &>>${log_file}
-status_check $?
 
 schema_setup
+systemd_setup
 
 }
 
@@ -84,7 +80,6 @@ status_check $?
 print_header "loading mysql schema"
 mysql -h mysql.sstech.store -uroot -p${mysql_root_password} < /app/schema/$component.sql &>>${log_file}
 status_check $?
-
 }
 
 app_user_setup () {
