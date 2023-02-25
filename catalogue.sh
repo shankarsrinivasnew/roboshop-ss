@@ -9,7 +9,10 @@ yum install nodejs -y &>>/tmp/roboshop.log
 status_check $?
 
 print_header "adding user"
+id roboshop
+if [$? -ne 0]; then
 useradd roboshop &>>/tmp/roboshop.log
+fi
 status_check $?
 
 print_header "adding new directory"
