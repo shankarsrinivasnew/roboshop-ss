@@ -41,4 +41,4 @@ cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>/tmp/robosh
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
 
 print_header "loading schema"
-mongo --host mongodb.sstech.store </app/schema/catalogue.js &>>/tmp/ronoshop.log
+mongo --host mongodb.sstech.store </app/schema/catalogue.js &>>/tmp/roboshop.log
