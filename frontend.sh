@@ -1,28 +1,28 @@
 source common.sh
 
 print_header "Installing nginx"
-yum install ngindddsfx -y &>>/tmp/roboshop.log
+yum install ngindddsfx -y &>>${log_file}
 status_check $?
 
 print_header "enabling service"
-systemctl enable nginx &>>/tmp/roboshop.log
-systemctl start nginx &>>/tmp/roboshop.log
+systemctl enable nginx &>>${log_file}
+systemctl start nginx &>>${log_file}
 status_check $?
 
 print_header "Removing old code"
-rm -rvf /usr/share/nginx/html/* &>>/tmp/roboshop.log
+rm -rvf /usr/share/nginx/html/* &>>${log_file}
 status_check $?
 
 print_header "downloading new code"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip  &>>/tmp/roboshop.log
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip  &>>${log_file}
 status_check $?
 
 print_header "copying new code"
 cd /usr/share/nginx/html 
-unzip /tmp/frontend.zip  &>>/tmp/roboshop.log
-cp ${code_dir}/configs/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf &>>/tmp/roboshop.log
+unzip /tmp/frontend.zip  &>>${log_file}
+cp ${code_dir}/configs/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf &>>${log_file}
 status_check $?
 
 print_header "restarting nginx"
-systemctl restart nginx &>>/tmp/roboshop.log
+systemctl restart nginx &>>${log_file}
 status_check $?
