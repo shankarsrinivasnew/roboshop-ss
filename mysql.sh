@@ -12,7 +12,7 @@ print_header "installing mysql"
 yum install mysql-community-server -y  &>>${log_file}
 status_check $?
 
-print_header "startiung mysql server"
+print_header "starting mysql server"
 systemctl enable mysqld  &>>${log_file}
 systemctl start mysqld  &>>${log_file}
 status_check $?
@@ -21,6 +21,7 @@ mysql_root_password=$1
 
 echo show databases | mysql -uroot -p${mysql_root_password}}  &>>${log_file}
 if [ $? -ne 0 ]; then
+print_header "seeting root password mysql"
 mysql_secure_installation --set-root-pass ${mysql_root_password}  &>>${log_file}
 status_check $?
 fi
