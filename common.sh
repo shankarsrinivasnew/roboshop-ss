@@ -11,6 +11,6 @@ if [ $1 -eq 0 ]; then
     echo "success"
 else
     echo "failed"
-    exit
+    exit 1
 fi
 }
