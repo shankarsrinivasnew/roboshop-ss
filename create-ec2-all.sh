@@ -2,7 +2,7 @@
 
 ##### Change these values ###
 ZONE_ID="Z0607165JC9NKEPWSMH2"
-DOMAIN="sstech.store.online"
+DOMAIN="sstech.store"
 SG_NAME="allow-all"
 #############################
 
