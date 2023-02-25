@@ -2,7 +2,11 @@ source common.sh
 
 print_header "Installing nginx"
 yum install nginx -y &>>/tmp/roboshop.log
-echo $?
+if [echo $? -eq 0]; then
+    echo "success"
+else
+    echo "failed"
+fi
 
 print_header "enabling service"
 systemctl enable nginx &>>/tmp/roboshop.log
