@@ -69,6 +69,14 @@ systemctl enable $component &>>${log_file}
 systemctl restart $component &>>${log_file}
 status_check $?
 
+schema_setup
+
+}
+
+schema_setup () {
+
+if [ "${schema_type}" == "mongo" ]; then
+
 print_header "loading mogo repositories"
 cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
 yum install mongodb-org-shell -y &>>${log_file}
@@ -77,4 +85,7 @@ status_check $?
 print_header "loading schema"
 mongo --host mongodb.sstech.store </app/schema/$component.js &>>${log_file}
 status_check $?
+
+fi
+
 }
