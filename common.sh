@@ -43,49 +43,6 @@ cd /app
 status_check $?
 }
 
-nodejs () {
-
-print_header "downloading code"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
-status_check $?
-
-print_header "installing package"
-yum install nodejs -y &>>${log_file}
-status_check $?
-
-app_user_setup
-
-print_header "installing new code"
-npm install &>>${log_file}
-status_check $?
-
-print_header "copying old code"
-cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service &>>${log_file}
-status_check $?
-
-
-schema_setup
-systemd_setup
-
-}
-
-java (){
-print_header "Installing maven "
-yum install maven -y  &>>${log_file}
-status_check $?
-
-app_user_setup
-
-print_header "installing dependencies"
-mvn clean package   &>>${log_file}
-mv target/$component-1.0.jar $component.jar  &>>${log_file}
-status_check $?
-
-schema_setup
-systemd_setup
-
-}
-
 schema_setup () {
 
 if [ "${schema_type}" == "mongo" ]; then
@@ -125,3 +82,47 @@ systemctl restart $component  &>>${log_file}
 status_check $?
 
 }
+
+nodejs () {
+
+print_header "downloading code"
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
+status_check $?
+
+print_header "installing package"
+yum install nodejs -y &>>${log_file}
+status_check $?
+
+app_user_setup
+
+print_header "installing new code"
+npm install &>>${log_file}
+status_check $?
+
+print_header "copying old code"
+cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service &>>${log_file}
+status_check $?
+
+schema_setup
+
+systemd_setup
+
+}
+
+java (){
+print_header "Installing maven "
+yum install maven -y  &>>${log_file}
+status_check $?
+
+app_user_setup
+
+print_header "installing dependencies"
+mvn clean package   &>>${log_file}
+mv target/$component-1.0.jar $component.jar  &>>${log_file}
+status_check $?
+
+schema_setup
+systemd_setup
+
+}
+
