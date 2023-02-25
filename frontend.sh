@@ -5,7 +5,7 @@ print_header () {
     echo -e "\e[36m$1\e[0m "
 }
 
-print_header "Installing nginx"
+print_header Installing nginx
 yum install nginx -y &>>/tmp/roboshop.log
 print_header "enabling service"
 systemctl enable nginx &>>/tmp/roboshop.log
