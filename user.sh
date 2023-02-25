@@ -44,7 +44,7 @@ systemctl start user  &>>{log_file}
 status_check $?
 
 print_header "loading yum repositories"
-copy ${code_dir}/mongodb.repo /etc/yum.repos.d/mongo.repo &>>{log_file}
+cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>{log_file}
 status_check $?
 
 print_header "installing mongodb"
