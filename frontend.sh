@@ -1,9 +1,4 @@
-code_dir=$(pwd)
-tmp_dir=/tmp/roboshop.log
-
-print_header () {
-    echo -e "\e[33m$1\e[0m "
-}
+source common.sh
 
 print_header "Installing nginx"
 yum install nginx -y &>>/tmp/roboshop.log
