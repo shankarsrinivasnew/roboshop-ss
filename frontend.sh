@@ -3,6 +3,7 @@ source common.sh
 print_header "Installing nginx"
 yum install nginx -y &>>/tmp/roboshop.log
 echo $?
+
 print_header "enabling service"
 systemctl enable nginx &>>/tmp/roboshop.log
 systemctl start nginx &>>/tmp/roboshop.log
