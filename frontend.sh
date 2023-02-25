@@ -1,7 +1,7 @@
 source common.sh
 
-print_header "Installing ngindd"
-yum install nginx -y &>>/tmp/roboshop.log
+print_header "Installing nginx"
+yum install ngindddsfx -y &>>/tmp/roboshop.log
 status_check $?
 
 print_header "enabling service"
