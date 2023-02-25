@@ -2,11 +2,11 @@ source common.sh src
 
 print_header "downloading nodejs"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>{log_file}
-status_check $1
+status_check $?
 
 print_header "Installing nodejs"
 yum install nodejs -y &>>{log_file}
-status_check $1
+status_check $?
 
 print_header "adding user"
 id roboshop &>>{log_file}
