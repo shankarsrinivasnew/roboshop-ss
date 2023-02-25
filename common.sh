@@ -72,7 +72,7 @@ fi
 
 systemd_setup () {
 print_header "adding systemd file"
-cp {code_dir}/configs/$component.service /etc/systemd/system/$component.service  &>>${log_file}
+cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service  &>>${log_file}
 status_check $?
 
 print_header "starting systemd service of app"
