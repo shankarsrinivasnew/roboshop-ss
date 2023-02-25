@@ -22,7 +22,8 @@ fi
 status_check $?
 
 print_header "downlading new code and unzip files"
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip >>&{log_file}
+rm -rvf /app/*
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip &>>{log_file}
 cd /app >>&{log_file}
 unzip /tmp/user.zip >>&{log_file}
 status_check $?
