@@ -139,7 +139,7 @@ status_check $?
 app_user_setup
 
 print_header "installing dependencies"
-pip3.6 install -r requirements.txt  -y &>>${log_file}
+pip3.6 install -r requirements.txt  &>>${log_file}
 status_check $?
 
 systemd_setup
