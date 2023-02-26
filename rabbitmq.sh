@@ -26,7 +26,7 @@ yum install rabbitmq-server -y &>>{log_file}
 status_check $?
 
 print_header "adding user and setting permissions"
-rabbitmqctl list users |grep roboshop & >>{log_file}
+rabbitmqctl list_users |grep roboshop & >>{log_file}
 if [ $? -ne 0 ]; then
 rabbitmqctl add_user roboshop ${rabbitmq_password} &>>{log_file}
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>{log_file}
