@@ -77,7 +77,7 @@ print_header "adding systemd file"
 cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service  &>>${log_file}
 status_check $?
 
-if [ "${component}" == "payment" | "${component}" == "dispatch" ]; then
+if [ "${component}" == "payment" ] || ["${component}" == "dispatch" ]; then
 print_header " adding roboshop app password to systemd file for payment service"
 sed -i -e "s/roboshop_app_password/${roboshop_password}/" /etc/systemd/system/${component}.service &>>{log_file}
 fi
