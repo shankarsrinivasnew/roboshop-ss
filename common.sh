@@ -79,7 +79,7 @@ status_check $?
 
 if [ "${component}" == "payment" ]; then
 print_header " adding roboshop app password to systemd file for payment service"
-sed -i -e "s/roboshop_app_password/${roboshop_password}" /etc/systemd/system/payment.service &>>{log_file}
+sed -i -e "s/roboshop_app_password/${roboshop_password}/" /etc/systemd/system/payment.service &>>{log_file}
 fi
 status_check $?
 
