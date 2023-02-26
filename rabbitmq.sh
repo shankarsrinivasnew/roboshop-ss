@@ -33,6 +33,7 @@ rabbitmqctl list_users |grep roboshop & >>{log_file}
 if [ $? -ne 0 ]; then
 print_header "adding user and setting permissions after checking existing user roboshop "
 rabbitmqctl add_user roboshop ${rabbitmq_password} &>>{log_file}
+exit 1
 fi
 status_check $?
 
