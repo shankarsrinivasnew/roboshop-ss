@@ -77,6 +77,13 @@ print_header "adding systemd file"
 cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service  &>>${log_file}
 status_check $?
 
+if [ "${component}" == "payment" ]; then
+print_header " adding roboshop app password to systemd file for payment service"
+sed -i -e "s/${roboshop_password}/roboshop_app_password" /etc/systemd/system/payment.service &>>{log_file}
+fi
+status_check $?
+
+
 print_header "starting systemd service of app"
 systemctl daemon-reload  &>>${log_file}
 systemctl enable $component  &>>${log_file}
@@ -122,5 +129,19 @@ status_check $?
 schema_setup
 systemd_setup
 
+}
+
+python (){
+print_header "Installing python" 
+yum install python36 gcc python3-devel -y  &>>${log_file}
+status_check $?
+
+app_user_setup
+
+print_header "installing dependencies"
+pip3.6 install -r requirements.txt  -y &>>${log_file}
+status_check $?
+
+systemd_setup
 }
 
