@@ -28,16 +28,14 @@ systemctl enable rabbitmq-server &>>{log_file}
 systemctl start rabbitmq-server  &>>{log_file}
 status_check $?
 
-print_header "adding user"
-rabbitmqctl list_users |grep roboshop & >>{log_file}
+print_header "Add Application User"
+rabbitmqctl list_users | grep roboshop &>>${log_file}
 if [ $? -ne 0 ]; then
-print_header "adding user and setting permissions after checking existing user roboshop "
-rabbitmqctl add_user roboshop ${rabbitmq_password} &>>{log_file}
+  rabbitmqctl add_user roboshop ${rabbitmq_password} &>>${log_file}
 fi
 status_check $?
 
 print_header "Configure Permissions for App User"
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>${log_file}
 status_check $?
-
 
