@@ -1,3 +1,5 @@
+#!/bin/bash
+
 code_dir=$(pwd)
 
 log_file=/tmp/roboshop.log
