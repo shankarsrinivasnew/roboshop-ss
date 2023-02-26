@@ -77,9 +77,9 @@ print_header "adding systemd file"
 cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service  &>>${log_file}
 status_check $?
 
-if [ "${component}" == "payment" ]; then
+if [ "${component}" == "payment" | "${component}" == "dispatch" ]; then
 print_header " adding roboshop app password to systemd file for payment service"
-sed -i -e "s/roboshop_app_password/${roboshop_password}/" /etc/systemd/system/payment.service &>>{log_file}
+sed -i -e "s/roboshop_app_password/${roboshop_password}/" /etc/systemd/system/${component}.service &>>{log_file}
 fi
 status_check $?
 
@@ -140,6 +140,22 @@ app_user_setup
 
 print_header "installing dependencies"
 pip3.6 install -r requirements.txt  &>>${log_file}
+status_check $?
+
+systemd_setup
+}
+
+golang (){
+print_header "Installing golong" 
+yum install golang -y  &>>${log_file}
+status_check $?
+
+app_user_setup
+
+print_header "installing dependencies"
+go mod init dispatch  &>>${log_file}
+go get  &>>${log_file}
+go build  &>>${log_file}
 status_check $?
 
 systemd_setup
