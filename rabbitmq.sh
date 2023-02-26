@@ -1,6 +1,6 @@
 source common.sh
 
-rabbitmq_password = $1
+rabbitmq_password=$1
 
 if [ -z "${rabbitmq_password}" ]; then
 echo -e "\e[31mMisiing rabbit password\e[0m"
