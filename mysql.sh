@@ -1,5 +1,11 @@
 source common.sh
 
+mysql_root_password=$1
+if [ -z "${mysql_root_password}" ]; then
+  echo -e "\e[31mMissing MySQL Root Password argument\e[0m"
+  exit 1
+fi
+
 print_header "disabling exiting  mysql"
 dnf module disable mysql -y  &>>${log_file}
 status_check $?
@@ -16,8 +22,6 @@ print_header "starting mysql server"
 systemctl enable mysqld  &>>${log_file}
 systemctl start mysqld  &>>${log_file}
 status_check $?
-
-mysql_root_password=$1
 
 print_header "setting root password mysql"
 echo show databases | mysql -uroot -p${mysql_root_password}  &>>${log_file}
